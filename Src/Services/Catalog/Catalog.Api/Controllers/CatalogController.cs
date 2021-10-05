@@ -37,16 +37,32 @@ namespace Catalog.Api.Controllers
             var res = await _repository.GetProduct(id);
             return Ok(res);
         }
+        [Route("[action]/{name}", Name = "GetProductByName")]
+        [HttpGet]
+      // [ProducesResponseType((int)HttpStatusCode.NotFound)]
+       [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductByName(string name)
+        {
+            var res = await _repository.GetProductByName(name);
+            return Ok(res);
 
+            //var products = await _repository.GetProductByCategory(name);
+            //return Ok(products);
+        }
+
+
+        //
 
         [Route("[action]/{category}", Name = "GetProductByCategory")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
+
         public async Task<ActionResult<IEnumerable<Product>>> GetProductByCategory(string category)
         {
             var products = await _repository.GetProductByCategory(category);
             return Ok(products);
         }
+
         [HttpPost]
         public async Task<ActionResult> CreatProduct([FromBody] Product product)
         {
@@ -59,6 +75,7 @@ namespace Catalog.Api.Controllers
             await _repository.DeleteProduct(id);
             return Ok();
         }
+
         [HttpPut]
         [ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] Product product)

@@ -48,18 +48,20 @@ namespace Catalog.Api.Repositories
 
             return await _context
                             .Products
-                            .Find(filter)
+                           .Find(filter)
+                           //.Find(p=>p.Name ==  categoryName)
                             .ToListAsync();
         }
 
-        public async Task<IEnumerable<Product>> GetProductByName(string name)
+        public async Task<Product> GetProductByName(string name)
         {
             FilterDefinition<Product> filter = Builders<Product>.Filter.Eq(p => p.Name, name);
-
+            // MongoCollection  
             return await _context
                             .Products
-                            .Find(filter)
-                            .ToListAsync();
+                            .Find(p=>p.Name==name).FirstOrDefaultAsync();
+                           // .Find(p=>p.Name==name)
+                           // .ToListAsync();
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
@@ -74,7 +76,8 @@ namespace Catalog.Api.Repositories
         {
             var updateResult = await _context
                                         .Products
-                                        .ReplaceOneAsync(filter: g => g.Id == product.Id, replacement: product);
+                                       // .ReplaceOneAsync(filter: g => g.Id == product.Id, replacement: product);
+                                       .ReplaceOneAsync(p => p.Id == product.Id, product);
 
             return updateResult.IsAcknowledged
                     && updateResult.ModifiedCount > 0;

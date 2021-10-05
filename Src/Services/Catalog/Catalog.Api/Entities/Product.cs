@@ -9,8 +9,10 @@ namespace Catalog.Api.Entities
 {
     public class Product
     {
+       // public ObjectId Id { get; set; }
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        
         public string Id { get; set; }
         [BsonElement("Name")]
         public string Name { get; set; }
