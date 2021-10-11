@@ -1,0 +1,20 @@
+﻿using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ordering.Application.Features.Order.Queries.GetOrderList
+{
+   public class GetOrdersListQuery : IRequest<List<OrdersVM>>
+    {
+        public string userName { get; set; }
+        public GetOrdersListQuery(string userName)
+        {
+            this.userName = userName;
+        }
+
+        
+    }
+}
