@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ordering.Application.Features.Order.Queries.GetOrderList
+namespace Ordering.Application.Features.Orders.Queries.GetOrderList
 {
     public class GetOrdersListQueryHandler : IRequestHandler<GetOrdersListQuery, List<OrdersVM>>
     {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Ordering.Application.Contracts.Persistance;
+using Ordering.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-
-namespace Ordering.Application.Features.Order.Commands.CheckOutOrder
+namespace Ordering.Application.Features.Orders.Commands.CheckOutOrder
 {
     class CheckoutOrderCommandHandler : IRequestHandler<CheckoutOrderCommand, int>
     {
@@ -22,10 +22,12 @@ namespace Ordering.Application.Features.Order.Commands.CheckOutOrder
             _mapper = mapper;
         }
 
-        public Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CheckoutOrderCommand request, CancellationToken cancellationToken)
         {
-            var request = _mapper.Map<Order>(request);
-            _orderRepository.AddAsync(request)
+            //  _orderRepository.AddAsync(request)
+            var orderentity = _mapper.Map<Order>(request);
+           var res=await _orderRepository.AddAsync(orderentity);
+            return res.Id;
             throw new NotImplementedException();
         }
     }
