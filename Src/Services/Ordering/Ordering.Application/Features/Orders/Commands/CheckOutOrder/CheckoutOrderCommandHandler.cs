@@ -28,7 +28,7 @@ namespace Ordering.Application.Features.Orders.Commands.CheckOutOrder
             var orderentity = _mapper.Map<Order>(request);
            var res=await _orderRepository.AddAsync(orderentity);
             return res.Id;
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
     }
 }
